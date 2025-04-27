@@ -53,6 +53,13 @@ public class User implements UserDetails, Principal {
     @ManyToMany(fetch = FetchType.EAGER)
     List<Role> roles;
 
+    @OneToMany(mappedBy = "owner")
+    List<Book> books;
+
+    @OneToMany(mappedBy = "user")
+    List<BookTransactionHistory> histories;
+
+
     @Override
     public boolean isAccountNonLocked() {
         return !accountLocked;
@@ -96,7 +103,7 @@ public class User implements UserDetails, Principal {
         return email;
     }
 
-    String fullName() {
+    public String getFullName() {
         return firstName + " " + lastName;
     }
 }
